@@ -1,0 +1,430 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L4P - Learn 4 Play</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: relative;
+            height: 80px;
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        .warning-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        .warning-content {
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
+            border: 2px solid #0ff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            animation: contentPopIn 0.5s ease-out;
+        }
+
+        .warning-content h2 {
+            color: #0ff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .warning-content p {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .warning-btn {
+            background: #0ff;
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .warning-btn:hover {
+            background: #00cccc;
+            transform: scale(1.05);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes contentPopIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .logo span {
+            font-size: 0.4em;
+            margin-left: 10px;
+            color: #0ff;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover span {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav {
+            margin-left: auto;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1em;
+            position: relative;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .nav a:nth-child(1) { animation-delay: 0.2s; }
+        .nav a:nth-child(2) { animation-delay: 0.4s; }
+        .nav a:nth-child(3) { animation-delay: 0.6s; }
+        .nav a:nth-child(4) { animation-delay: 0.8s; }
+        .nav a:nth-child(5) { animation-delay: 1s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav a:hover {
+            color: #0ff;
+            transform: scale(1.1);
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: calc(100vh - 80px);
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 70%);
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            color: #888;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: transparent;
+            border: 2px solid #0ff;
+            color: #0ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: #0ff;
+            transition: transform 0.5s ease;
+            transform: translate(-50%, -50%) rotate(45deg) translateY(100%);
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            transform: translate(-50%, -50%) rotate(45deg) translateY(0);
+        }
+
+        .cta-button:hover {
+            color: #000;
+        }
+
+        .cta-button.primary {
+            background: #0ff;
+            color: #000;
+        }
+
+        .cta-button.primary:hover {
+            background: transparent;
+            color: #0ff;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .feature {
+            background: rgba(0, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px) rotateY(10deg);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .feature i {
+            font-size: 2em;
+            color: #0ff;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature h3 {
+            color: #0ff;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 15px #0ff;
+            }
+            to {
+                text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+            }
+        }
+
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(50px);
+            }
+        }
+
+        .content {
+            animation: contentFade 1s ease-out;
+        }
+
+        @keyframes contentFade {
+            from {
+                opacity: 0;
+                transform: translateZ(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateZ(0);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="warning-modal" id="warningModal">
+        <div class="warning-content">
+            <h2><i class="fas fa-exclamation-triangle" style="color: #0ff; margin-right: 10px;"></i>Device Warning</h2>
+            <p>This website is optimized for PC/Laptop use only. For the best learning experience, please access this platform using a desktop computer or laptop.</p>
+            <button class="warning-btn" onclick="closeWarning()">I Understand</button>
+        </div>
+    </div>
+    <header class="header">
+        <div class="logo">L4P <span>Learn 4 Play</span></div>
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="GAMES.html">Games</a>
+            <a href="Courses.html">Courses</a>
+            <a href="https://discord.gg/5F7aEgXGQw">Community</a>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <div class="grid-bg"></div>
+        <div class="content">
+            <h1>Learn Coding Through Gaming</h1>
+            <p>Welcome to L4P (Learn 4 Play), where coding meets gaming! Master programming skills while having fun in our interactive gaming environment. Whether you're a beginner or an experienced coder, level up your skills in an engaging way.</p>
+            <div class="cta-buttons">
+                <button class="cta-button primary">Start Playing</button>
+                <button class="cta-button">View Courses</button>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Learn by Playing</h3>
+                    <p>Master coding concepts through interactive games</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-code"></i>
+                    <h3>Real Coding</h3>
+                    <p>Practice with actual programming languages</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-users"></i>
+                    <h3>Community</h3>
+                    <p>Join other learners in multiplayer challenges</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function closeWarning() {
+            const modal = document.getElementById('warningModal');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+    </script>
+</body>
+</html> 
