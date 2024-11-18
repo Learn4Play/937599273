@@ -197,7 +197,7 @@
             const payload = JSON.stringify({ code, timeout: 5 });
             console.log("Sending payload:", payload); // Log the payload
 
-            fetch("https://studious-succotash-4jw5gp4gwpgqc7xq5-5000.app.github.dev/", {
+            fetch("http://127.0.0.1:5000/run", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
